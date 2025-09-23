@@ -25,7 +25,7 @@ public abstract class Vehiculo {
     private int anio;
     private double velocidadMaxima;
     private double velocidadActual = 0;
-    
+
     // ✅ Este método es virtual, no se guarda en la BD
     @Transient
     public String getTipoVehiculo() {
@@ -33,75 +33,75 @@ public abstract class Vehiculo {
                 ? this.getClass().getAnnotation(DiscriminatorValue.class).value()
                 : this.getClass().getSimpleName(); // fallback
     }
-    
+
     public Vehiculo() {
     }
-    
+
     public Vehiculo(String marca, String modelo, int anio, double velocidadMaxima) {
         this.marca = marca;
         this.modelo = modelo;
         this.anio = anio;
         this.velocidadMaxima = velocidadMaxima;
     }
-    
+
     // Getters y Setters
     public Long getId() {
         return id;
     }
-    
+
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     public String getMarca() {
         return marca;
     }
-    
+
     public void setMarca(String marca) {
         this.marca = marca;
     }
-    
+
     public String getModelo() {
         return modelo;
     }
-    
+
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }
-    
+
     public int getAnio() {
         return anio;
     }
-    
+
     public void setAnio(int anio) {
         this.anio = anio;
     }
-    
+
     public double getVelocidadMaxima() {
         return velocidadMaxima;
     }
-    
+
     public void setVelocidadMaxima(double velocidadMaxima) {
         this.velocidadMaxima = velocidadMaxima;
     }
-    
+
     public double getVelocidadActual() {
         return velocidadActual;
     }
-    
+
     public void setVelocidadActual(double velocidadActual) {
         this.velocidadActual = velocidadActual;
     }
-    
+
     // Métodos de comportamiento
     public void acelerar(double incremento) {
         velocidadActual = Math.min(velocidadMaxima, velocidadActual + incremento);
     }
-    
+
     public void frenar(double decremento) {
         velocidadActual = Math.max(0, velocidadActual - decremento);
     }
-    
+
     public String mostrarInfo() {
         return "Info: " + marca + " " + modelo + " (" + anio + ") - Vmax=" + velocidadMaxima + " km/h";
     }
