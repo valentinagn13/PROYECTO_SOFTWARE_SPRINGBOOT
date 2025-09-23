@@ -2,6 +2,7 @@ package com.vehiculos.model;
 
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.DiscriminatorType;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "vehiculo")
@@ -23,6 +25,14 @@ public abstract class Vehiculo {
     private int anio;
     private double velocidadMaxima;
     private double velocidadActual = 0;
+    
+    // ✅ Este método es virtual, no se guarda en la BD
+    @Transient
+    public String getTipoVehiculo() {
+        return this.getClass().getAnnotation(DiscriminatorValue.class) != null
+                ? this.getClass().getAnnotation(DiscriminatorValue.class).value()
+                : this.getClass().getSimpleName(); // fallback
+    }
     
     public Vehiculo() {
     }
